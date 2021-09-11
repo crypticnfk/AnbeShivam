@@ -11,5 +11,11 @@ contract AnbeShivamMain {
     address owner;
   }
 
+  uint contentCount;
   Content[] public contents;
+
+  function createContent(string memory _name, string memory _fileURL) external {
+    contentCount++;
+    contents[contentCount] = Content(_name, _fileURL, msg.sender);
+  } 
 }
