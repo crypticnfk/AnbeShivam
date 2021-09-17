@@ -6,6 +6,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.1",
     "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "ipfs-http-client": "^52.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
