@@ -1,20 +1,29 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract AnbeShivamMain {
+contract AnbeShivamMain is ERC20{
 
-    constructor() public {
+    constructor() ERC20("AnbeShivam Coin","GODS"){
     }
 
     struct Content {
+        uint recfunds;
         string name;
         string fileURL;
-        address creator;
+        address payable creator;
     }
 
     Content[] public contents;
 
     function addContent(string memory _name, string memory _fileURL) external {
-        contents.push(Content(_name, _fileURL, msg.sender));
+        contents.push(Content(0,_name, _fileURL, payable(msg.sender)));
     } 
+    
+    function investedFunds(uint contentid) external payable{
+        contents[contentid].creator.transfer(msg.value);
+        contents[contentid].recfunds += msg.value;
+        _mint(msg.sender,msg.value);
+
+    }
 }
