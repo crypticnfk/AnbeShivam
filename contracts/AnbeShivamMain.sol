@@ -12,11 +12,9 @@ contract AnbeShivamMain {
         address creator;
     }
 
-    uint contentCount;
     Content[] public contents;
 
     function addContent(string memory _name, string memory _fileURL) external {
-        contents[contentCount] = Content(_name, _fileURL, msg.sender);
-        contentCount++;
+        contents.push(Content(_name, _fileURL, msg.sender));
     } 
 }
