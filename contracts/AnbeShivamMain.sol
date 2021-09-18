@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract AnbeShivamMain is ERC20{
@@ -8,7 +9,7 @@ contract AnbeShivamMain is ERC20{
     }
 
     struct Content {
-        uint recfunds;
+        uint receivedFunds;
         string name;
         string fileURL;
         address payable creator;
@@ -16,12 +17,12 @@ contract AnbeShivamMain is ERC20{
 
     Content[] public contents;
 
-    event contentadded(
+    event contentAdded(
         string name,
         string fileURL
     );
 
-    function returncount() 
+    function returnContentCount() 
         public  
         view 
         returns (uint) 
@@ -35,16 +36,16 @@ contract AnbeShivamMain is ERC20{
     ) 
         external 
     {
-        contents.push(Content(0,_name, _fileURL, payable(msg.sender)));
-        emit contentadded(contents[contents.length-1].name, contents[contents.length-1].fileURL);
+        contents.push(Content(0, _name, _fileURL, payable(msg.sender)));
+        emit contentAdded(contents[contents.length-1].name, contents[contents.length-1].fileURL);
     } 
     
-    function investFunds(uint contentid) 
+    function investFunds(uint contentID) 
         external 
         payable 
     {
-        contents[contentid].creator.transfer(msg.value);
-        contents[contentid].recfunds += msg.value;
-        _mint(msg.sender,msg.value);
+        contents[contentID].creator.transfer(msg.value);
+        contents[contentID].receivedFunds += msg.value;
+        _mint(msg.sender, msg.value);
     }
 }

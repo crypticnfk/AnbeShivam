@@ -1,15 +1,16 @@
 const AnbeShivamMain = artifacts.require('AnbeShivamMain');
 
 contract('AnbeShivamMain', (accounts) => {
-    let asm ;
+    let asMain;
+
     before(async () =>{
-      asm = await AnbeShivamMain.deployed();
+      asMain = await AnbeShivamMain.deployed();
     })
 
-    describe('Contract Deployment' ,async () =>{
+    describe("Contract Deployment", async () => {
 
-        it('contract deploys succesfully', async () =>{
-           const address = await asm.address;
+        it("contract deploys succesfully", async () => {
+           const address = await asMain.address;
            assert.isDefined(address);    
            assert.notEqual(address, "0x0000000000000000000000000000000000000000"); 
            assert.notEqual(address,null);
@@ -17,37 +18,43 @@ contract('AnbeShivamMain', (accounts) => {
         })
     })
 
-    describe("Add contents",async ()=>{
-        let event;
-        before(async()=> {
-            const result = await asm.addContent("abc","string");
-            event=result.logs[0].args;
+    describe("Add content",async () => {
+        let event, initialContentCount;
+
+        before(async () => {
+            initialContentCount = await asMain.returnContentCount();
+            const result = await asMain.addContent("abcd", "sampleurl");
+            event = result.logs[0].args;
         })
-        it("adds new content",async()=>{
-            const contentcount=await asm.returncount();
-            assert.equal(contentcount.toString(),"1");
-            assert.equal(event.name,"abc");
-            assert.equal(event.fileURL,"string");
+
+        it("content count increases", async () => {
+            const finalContentCount = await asMain.returnContentCount();
+            assert.equal((finalContentCount - initialContentCount).toString(), "1");
+        })
+
+        it("content has correct name and file", async () => {
+            assert.equal(event.name, "abcd");
+            assert.equal(event.fileURL, "sampleurl");
         })
     })
 
     describe("Fund contents", async() => {
         let initialEthBalance, initialGodsBalance;
 
-        before(async() => {
+        before(async () => {
             initialEthBalance = await web3.eth.getBalance(accounts[0]);
-            initialGodsBalance = await asm.balanceOf(accounts[1]);
-            await asm.investFunds(0, {from: accounts[1], value: web3.utils.toWei("0.1", "ether")});
+            initialGodsBalance = await asMain.balanceOf(accounts[1]);
+            await asMain.investFunds(0, {from: accounts[1], value: web3.utils.toWei("0.1", "ether")});
         })
 
-        it("can send funds to the content creator", async() => {
+        it("invest funds in content", async() => {
             const finalEthBalance = await web3.eth.getBalance(accounts[0]);                        
-            assert.equal(web3.utils.fromWei((finalEthBalance-initialEthBalance).toString()), "0.1");
+            assert.equal(web3.utils.fromWei((finalEthBalance - initialEthBalance).toString()), "0.1");
         })
 
-        it("investor can receive GODS tokens", async()=> {
-            const finalGodsBalance = await asm.balanceOf(accounts[1]);
-            assert.equal(web3.utils.fromWei((finalGodsBalance-initialGodsBalance).toString()), "0.1");
+        it("investor receives GODS tokens", async()=> {
+            const finalGodsBalance = await asMain.balanceOf(accounts[1]);
+            assert.equal(web3.utils.fromWei((finalGodsBalance - initialGodsBalance).toString()), "0.1");
         })
     })
 })
