@@ -15,9 +15,15 @@ contract AnbeShivamMain is ERC20{
     }
 
     Content[] public contents;
+    event contentadded(string name,string fileURL);
+    function returncount() public  view returns(uint) {
+        return contents.length;
+
+    }
 
     function addContent(string memory _name, string memory _fileURL) external {
         contents.push(Content(0,_name, _fileURL, payable(msg.sender)));
+        emit contentadded(contents[contents.length-1].name, contents[contents.length-1].fileURL);
     } 
     
     function investedFunds(uint contentid) external payable{
