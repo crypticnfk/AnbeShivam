@@ -1,10 +1,14 @@
 const AnbeShivamMain = artifacts.require('AnbeShivamMain');
+const AnbeShivamInvestorToken = artifacts.require('AnbeShivamInvestorToken');
 
 contract('AnbeShivamMain', (accounts) => {
-    let asMain;
+    let asMain, asiToken;
 
     before(async () =>{
       asMain = await AnbeShivamMain.deployed();
+      asiToken = await AnbeShivamInvestorToken.deployed();
+      await asMain.setTokenContractAddress(await asiToken.address);
+      await asiToken.setMinterRole(await asMain.address);
     })
 
     describe("Contract Deployment", async () => {
@@ -18,7 +22,7 @@ contract('AnbeShivamMain', (accounts) => {
         })
     })
 
-    describe("Add content",async () => {
+    describe("Add new content",async () => {
         let event, initialContentCount;
 
         before(async () => {
@@ -43,7 +47,7 @@ contract('AnbeShivamMain', (accounts) => {
 
         before(async () => {
             initialEthBalance = await web3.eth.getBalance(accounts[0]);
-            initialGodsBalance = await asMain.balanceOf(accounts[1]);
+            initialGodsBalance = await asiToken.balanceOf(accounts[1]);
             await asMain.investFunds(0, {from: accounts[1], value: web3.utils.toWei("0.1", "ether")});
         })
 
@@ -53,7 +57,7 @@ contract('AnbeShivamMain', (accounts) => {
         })
 
         it("investor receives GODS tokens", async()=> {
-            const finalGodsBalance = await asMain.balanceOf(accounts[1]);
+            const finalGodsBalance = await asiToken.balanceOf(accounts[1]);
             assert.equal(web3.utils.fromWei((finalGodsBalance - initialGodsBalance).toString()), "0.1");
         })
     })
