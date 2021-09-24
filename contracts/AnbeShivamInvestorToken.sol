@@ -15,8 +15,4 @@ contract AnbeShivamInvestorToken is ERC20, AccessControl {
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
     }
-
-    function setMinterRole(address asmContractAddress) external {
-        _setupRole(MINTER_ROLE, asmContractAddress);
-    }
 }

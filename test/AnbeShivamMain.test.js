@@ -8,7 +8,8 @@ contract('AnbeShivamMain', (accounts) => {
       asMain = await AnbeShivamMain.deployed();
       asiToken = await AnbeShivamInvestorToken.deployed();
       await asMain.setTokenContractAddress(await asiToken.address);
-      await asiToken.setMinterRole(await asMain.address);
+      const MINTER_ROLE = web3.utils.soliditySha3("MINTER_ROLE");
+      await asiToken.grantRole(MINTER_ROLE, await asMain.address);
     })
 
     describe("Contract Deployment", async () => {
