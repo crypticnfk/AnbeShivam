@@ -18,8 +18,11 @@ contract AnbeShivamMain is Ownable {
 
     Content[] contents;
 
+    mapping(uint => string) public projects;
+
     event newContentAdded(uint, string, string);
     event viewedContent(Content, address);
+    event projectFunded(uint, uint, address);
 
     function setContractAddresses(
         address _GODSContract, 
@@ -42,6 +45,7 @@ contract AnbeShivamMain is Ownable {
 
     function addContent(string memory _name, string memory _fileURL) external {
         contents.push(Content(0, _name, _fileURL, payable(msg.sender)));
+        projects[contents.length - 1] = _name;
         emit newContentAdded(
             contents.length - 1,
             contents[contents.length - 1].name,
@@ -50,10 +54,11 @@ contract AnbeShivamMain is Ownable {
     }
 
     function investFunds(uint _contentID, string memory _metadata) external payable {
-        require(msg.value > 0 && msg.value <= 100 ether, "Invalid amount");
+        require(msg.value > 0 && msg.value <= 1000000 ether, "Invalid amount");
         contents[_contentID].receivedFunds += msg.value;
         contents[_contentID].creator.transfer(msg.value);
         AnbeShivamInvestorToken(GODSContract).mint(msg.sender, msg.value);
         AnbeShivamNFT(NFTContract).safeMint(msg.sender, _metadata);
+        emit projectFunded(_contentID, msg.value, msg.sender);
     }
 }
