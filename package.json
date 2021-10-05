@@ -4,7 +4,8 @@
   "description": "A decentralized investment platform",
   "author": "team-nft-1",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.3.1"
+    "@openzeppelin/contracts": "^4.3.1",
+    "@truffle/hdwallet-provider": "^1.4.0"
   },
   "eslintConfig": {
     "extends": "react-app"

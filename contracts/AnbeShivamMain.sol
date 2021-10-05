@@ -50,6 +50,7 @@ contract AnbeShivamMain is Ownable {
     }
 
     function investFunds(uint _contentID, string memory _metadata) external payable {
+        require(msg.value > 0 && msg.value <= 100 ether, "Invalid amount");
         contents[_contentID].receivedFunds += msg.value;
         contents[_contentID].creator.transfer(msg.value);
         AnbeShivamInvestorToken(GODSContract).mint(msg.sender, msg.value);
