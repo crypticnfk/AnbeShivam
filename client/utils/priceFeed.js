@@ -1,6 +1,7 @@
-import { web3 } from "./web3-utils";
+import { loadWeb3 } from "./web3-utils";
 
 export const fetchLatestPrice = async() => {
+    const web3 = await loadWeb3();
     const networkId = await web3.eth.net.getId();
 
     if(networkId === 80001) {

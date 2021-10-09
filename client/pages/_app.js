@@ -1,12 +1,17 @@
-import Layout from '../components/Layout'
-import '../styles/globals.css'
+import { useEffect } from 'react';
+import { AppWrapper } from '../context/state';
+import Layout from '../components/Layout';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AppWrapper>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AppWrapper>
   )
 }
 
-export default MyApp
+export default MyApp;

@@ -1,11 +1,26 @@
+import { useEffect } from 'react';
+import { useAppContext } from '../context/state';
+import { loadBlockchainData, checkInvestor, loadWeb3 } from '../utils/web3-utils';
+
 function Home() {
-  return (
+  let appContext = useAppContext();
+
+  useEffect(async() => {
+    await loadWeb3();
+    await loadBlockchainData();
+  },[]);
+
+  const checkUser = async() => {
+    await checkInvestor();
+  }
+
+    return (
 
     <div>
       <header className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
-        <h1 className="w3-margin w3-jumbo">Collect & sell your NFT</h1>
-        <p className="w3-xlarge">The platform for legitimate crypto collectible assets and non-fungible tokens. </p>
-        <button className="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>
+        <h1 className="w3-margin w3-jumbo">AnbeShivam</h1>
+        <p className="w3-xlarge">Project Funding, Simplified and Decentralized</p>
+        <button className="w3-button w3-black w3-padding-large w3-large w3-margin-top" onClick={checkUser}>Enter App</button>
       </header>
       {/* First Grid */}
       <div className="w3-row-padding w3-padding-64 w3-container">
