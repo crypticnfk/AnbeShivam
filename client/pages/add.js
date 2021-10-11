@@ -34,12 +34,11 @@ function AddContent() {
         try {
             const added = await client.add(file);
             const pathUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
-            console.log(pathUrl)
-            updateUrl(pathUrl)
+            updateUrl(pathUrl);
+            await addContent(inputs.name, pathUrl);
         } catch (error) {
             console.log('Error uploading file: ', error)
         }
-        await addContent(inputs.name, url);
     }
 
     if(connected) {
