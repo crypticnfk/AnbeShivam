@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/state';
-import { getAccountAddress, loadBlockchainData, getGODSBalance, loadWeb3 } from "../utils/web3-utils";
-import { fetchLatestPrice } from '../utils/priceFeed';
+import { loadWeb3, loadBlockchainData, getAccountAddress, getGODSBalance } from "../utils/web3-utils";
 
 function Header() {
     let appContext = useAppContext();
 
     useEffect(async() => {
-        await loadWeb3();
-        await loadBlockchainData();
-        const account = await getAccountAddress();
-        setAccount(account);
-        const GODSbalance = await getGODSBalance();
-        setBalance(GODSbalance);
+        const isConnected = await loadWeb3();
+        if(isConnected) {
+            await loadBlockchainData();
+            const account = await getAccountAddress();
+            setAccount(account);
+            const GODSbalance = await getGODSBalance();
+            setBalance(GODSbalance);
+        }
     },[]);
 
-    const [account, setAccount] = useState("Not detected");
+    const [account, setAccount] = useState("Not Detected");
     const [godsBalance, setBalance] = useState(0);
 
     return (
@@ -41,4 +42,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Header;

@@ -1,4 +1,4 @@
-function Contents() {
+function Projects() {
     return ( 
         <div>
 
@@ -6,4 +6,4 @@ function Contents() {
      );
 }
 
-export default Contents
+export default Projects;
