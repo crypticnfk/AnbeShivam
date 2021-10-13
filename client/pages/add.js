@@ -1,19 +1,29 @@
-import { useState, useEffect } from "react";
-import styles from '../styles/AddContent.module.css'
+import styles from '../styles/AddContent.module.css';
 import { create } from 'ipfs-http-client';
-import { loadWeb3, loadBlockchainData, addContent } from '../utils/web3-utils';
+import { Context } from '../context/state';
+import { 
+    useState, 
+    useEffect,
+    useContext 
+} from "react";
+import { 
+    loadWeb3, 
+    loadBlockchainData, 
+    addContent 
+} from '../utils/web3-utils';
 
-const client = create('https://ipfs.infura.io:5001/api/v0')
+const client = create('https://ipfs.infura.io:5001/api/v0');
 
 function AddContent() {
+    const [web3, setweb3] = useContext(Context);
 
     useEffect(async() => {
-        const isConnected = await loadWeb3();
-        setConnected(isConnected);
-        if(isConnected) {
-            await loadBlockchainData();
+        if(web3) {
+            await loadWeb3();
+            const isConnected = await loadBlockchainData();
+            setConnected(isConnected);
         }
-    },[]);
+    },[web3]);
 
     const [connected, setConnected] = useState(false);
     const [inputs, setInputs] = useState({});
@@ -37,7 +47,7 @@ function AddContent() {
             updateUrl(pathUrl);
             await addContent(inputs.name, pathUrl);
         } catch (error) {
-            console.log('Error uploading file: ', error)
+            console.log('Error uploading file: ', error);
         }
     }
 
@@ -70,13 +80,11 @@ function AddContent() {
                 </form>
             </div>
         );
-        } else {
-            return(
-                <div className="col-md-6 offset-md-3 mt-5">
-                    <h2>Not Connected</h2>
-                </div>
-            );
-        }
+    } else {
+        return(
+            <h1>Not Connected</h1>
+        );
+    }
 }
 
 export default AddContent;

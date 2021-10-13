@@ -20,7 +20,7 @@ export const loadWeb3 = async () => {
         web3 = new Web3(window.web3.currentProvider);
         return true;
     } else {
-        window.alert('Non-Ethereum browser detected. Please install MetaMask plugin');
+        window.alert('Wallet not connected. Please install the Metamask plugin');
         return false;
     };
   } catch (err) {
@@ -39,8 +39,10 @@ export const loadBlockchainData = async() => {
     AnbeShivam = new web3.eth.Contract(AnbeShivamMain.abi, asMainData.address);
     ASNFT = new web3.eth.Contract(AnbeShivamNFT.abi, asNFTData.address);
     GODSToken = new web3.eth.Contract(AnbeShivamInvestorToken.abi, asGODSData.address);
+    return true;
   } else {
-    window.alert("The contract was not deployed to the current network");
+    window.alert("Unidentified network, please connect to Polygon or Mumbai");
+    return false;
   }
 };
 
@@ -49,15 +51,26 @@ export const getAccountAddress = async() => {
   return accounts[0];
 };
 
+export const getNetwork = async() => {
+  const networkId = await web3.eth.net.getId();
+  if(networkId == 137) {
+    return "Polygon";
+  } else if(networkId == 80001) {
+    return "Mumbai";
+  } 
+
+  return "Unidentified Network";
+};
+
 export const checkInvestor = async() => {
   const account = await getAccountAddress();
   const bl = await web3.eth.getBalance(account);
   const balance = await web3.utils.fromWei(bl.toString());
   const nfts = await getNFTBalance(web3);
   if(parseFloat(balance) > 10 || nfts > 0) {
-    window.alert("Welcome investor");
+    return true;
   } else {
-    window.alert("You're not allowed access");
+    return false;
   }
 }
 
@@ -79,40 +92,46 @@ export const getTokenURI = async(tokenId) => {
   return uri;
 };
 
+export const getProjectNames = async() => {
+  let projects = [];
+  const pCount = await returnProjectCount();
+  for(var i = 0; i < pCount; ++i) {
+    const project = await AnbeShivam.methods.projects(i).call();
+    projects.push(project);
+  }
+  return projects;
+}
+
 export const addContent = async(projectName, fileURL) => {
   const account = await getAccountAddress();
-  await AnbeShivam.methods
+  AnbeShivam.methods
     .addContent(projectName, fileURL)
     .send({
       from: account
     })
     .on("transactionHash", function (hash) {})
     .on("receipt", function (receipt) {})
-    .on("confirmation", (confirmationNumber, receipt) => {
+    .once("confirmation", (confirmationNumber, receipt) => {
       window.alert("Project was added successfully");
     })
-    .on("error", (error, receipt) => {
+    .once("error", (error, receipt) => {
       window.alert("Error occured: ", error);
     });
 
-  window.location.reload();
+  window.location.href= "/projects";
 };
 
 export const returnContent = async(projectId) => {
   const account = await getAccountAddress();
-  await AnbeShivam.methods
+  AnbeShivam.methods
     .returnContent(projectId)
     .send({
       from: account
     })
-    .on("transactionHash", function (hash) {})
-    .on("receipt", function (receipt) {})
-    .on("confirmation", (confirmationNumber, receipt) => {        
-      const result = web3.eth.getTransactionReceipt(receipt.transactionHash);
-      const event = result.logs[0].topics[0];
-      return event[0];
+    .once("confirmation", (confirmationNumber, receipt) => { 
+      console.log(receipt.events.viewedContent.returnValues[0]);  
     })
-    .on("error", (error, receipt) => {
+    .once("error", (error, receipt) => {
       window.alert("Error occured while accessing content");
     });
 };
@@ -124,7 +143,7 @@ export const returnProjectCount = async() => {
 
 export const investFunds = async(contentId, metadata, amount) => {
   const account = await getAccountAddress();
-  await AnbeShivam.methods
+  AnbeShivam.methods
     .investFunds(contentId, metadata)
     .send({
       from: account,
@@ -132,10 +151,10 @@ export const investFunds = async(contentId, metadata, amount) => {
     })
     .on("transactionHash", function (hash) {})
     .on("receipt", function (receipt) {})
-    .on("confirmation", (confirmationNumber, receipt) => {
+    .once("confirmation", (confirmationNumber, receipt) => {
       window.alert("Successfully funded project " + contentId.toString());
     })
-    .on("error", (error, receipt) => {
+    .once("error", (error, receipt) => {
       window.alert("Error occured while accessing content");
     });
 };

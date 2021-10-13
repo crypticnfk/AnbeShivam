@@ -1,26 +1,43 @@
-import { useEffect, useState } from 'react';
-import { useAppContext } from '../context/state';
-import { loadWeb3, loadBlockchainData, checkInvestor } from '../utils/web3-utils';
+import { 
+  useEffect, 
+  useState, 
+  useContext 
+} from 'react';
+import { Context } from '../context/state';
+import { 
+  loadWeb3, 
+  loadBlockchainData, 
+  checkInvestor
+} from '../utils/web3-utils';
 
 function Home() {
-  let appContext = useAppContext();
+  const [web3, setWeb3] = useContext(Context); 
 
   useEffect(async() => {
-    const isConnected = await loadWeb3();
-    setConnected(isConnected);
-    if(isConnected) {
-      await loadBlockchainData();
+    if(web3) {
+      await loadWeb3();
+      const isConnected = await loadBlockchainData();
+      setConnected(isConnected);
     }
-  },[]);
+  },[web3]);
 
   const [connected, setConnected] = useState(false);
 
   const checkUser = async() => {
-    await checkInvestor();
+    if(!connected) {
+      window.alert("Please connect your wallet first and use Polygon or Mumbai Network");
+    } else {
+      const isInvestor = await checkInvestor();
+      if(isInvestor) {
+        window.alert("Welcome Investor");
+        window.location.href = "/projects";
+      } else {
+        window.alert("You're not eligible to access the platform");
+      }
+    }
   }
 
-  if(connected) {
-    return (
+  return (
 
       <div>
         <header className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
@@ -64,14 +81,7 @@ function Home() {
 
       </div>
 
-    );
-  } else {
-    return(
-        <div className="col-md-6 offset-md-3 mt-5">
-            <h2>Not Connected</h2>
-        </div>
-    );
-  }
+  );
 }
 
 export default Home;
