@@ -1,5 +1,3 @@
-
-  
 const AnbeShivamMain = artifacts.require('AnbeShivamMain');
 const AnbeShivamNFT = artifacts.require('AnbeShivamNFT');
 const AnbeShivamInvestorToken = artifacts.require('AnbeShivamInvestorToken');

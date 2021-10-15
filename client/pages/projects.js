@@ -9,13 +9,19 @@ import {
     loadBlockchainData, 
     getProjectNames,
     returnContent,
-    checkInvestor
+    checkInvestor,
+    investFunds,
+    fetchLatestPrice
 } from '../utils/web3-utils';
+import ProjectModal from '../components/modal';
 
 function Projects() {
     const [web3, setweb3] = useContext(Context);
     const [connected, setConnected] = useState(false);
     const [projects, setProjects] = useState([]);
+    const [modalShow, setModalShow] = useState(false);
+    const [chosenProject, chooseProject] = useState(null);
+    const [maticusd, setMaticusd] = useState(0);
 
     useEffect(async() => {
         if(web3) {
@@ -28,18 +34,59 @@ function Projects() {
             if(!isInvestor) {
                 window.location.href = "/";
             }
+            setMaticusd(await fetchLatestPrice());
         }
     },[web3]);
 
+    const getProject = async(event) => {
+        returnContent(event.target.value)
+        .then(result => {
+            if(result) {
+                chooseProject(result);
+                setModalShow(true);
+            }
+        })
+    }
+
+    const investInProject = async(amount) => {
+        const metadata = {
+            name: "AnbeShivam Investor - Project "+chosenProject.name,
+            description: "Certificate of Investment in project "+chosenProject.name+" on the AnbeShivam Protocol",
+            image: ""
+        }
+        await investFunds(chosenProject.id, metadata, amount);
+    }
+
     if(connected) {
         return(
+            <>
             <div>
-            <br/><br/>
+            <br/><br/>     
+            {projects.length == 0 &&
+                <h1>No Projects</h1>
+            }     
+            {projects.length > 0 &&
+            <div>
                 <h1>Projects</h1>
             {projects.map((project, key) => (
-                <h4>{project}</h4>
-            ))}
+                <div>
+                    <h4>{project}</h4>
+                    <button id={key} className="w3-button w3-black w3-padding-small w3-small w3-margin-top" value={project.id} onClick={getProject}>View</button>
+                    <br/>
+                </div>
+             ))
+            }
+            <ProjectModal
+                show={modalShow}
+                maticusd={maticusd}
+                project={chosenProject}
+                investInProject={(amount) => investInProject(amount)}
+                onHide={() => setModalShow(false)}
+            />
             </div>
+            }
+            </div>
+            </>
         );
     } else {
         return(

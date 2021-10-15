@@ -22,6 +22,10 @@ contract AnbeShivamNFT is ERC721, ERC721URIStorage, AccessControl {
 
     Badge[] public badges;
 
+    function returnNFTCount() public view returns(uint) {
+        return _tokenIdCounter.current();
+    }
+
     function safeMint(address _to, string memory _tokenURI) public onlyRole(MINTER_ROLE) {
         _safeMint(_to, _tokenIdCounter.current());
         _setTokenURI(_tokenIdCounter.current(), _tokenURI);

@@ -10,6 +10,7 @@ contract AnbeShivamMain is Ownable {
     address NFTContract;
 
     struct Content {
+        uint id;
         uint receivedFunds;
         string name;
         string fileURL;
@@ -44,7 +45,7 @@ contract AnbeShivamMain is Ownable {
     } 
 
     function addContent(string memory _name, string memory _fileURL) external {
-        contents.push(Content(0, _name, _fileURL, payable(msg.sender)));
+        contents.push(Content(contents.length, 0, _name, _fileURL, payable(msg.sender)));
         projects[contents.length - 1] = _name;
         emit newContentAdded(
             contents.length - 1,

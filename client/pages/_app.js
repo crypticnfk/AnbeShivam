@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { loadWeb3 } from '../utils/web3-utils';
 import NoSSRWrapper from '../components/nossr'
 import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function MyApp({ Component, pageProps }) {
   const [web3, setweb3] = useState(false);
