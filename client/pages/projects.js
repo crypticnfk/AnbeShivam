@@ -52,9 +52,10 @@ function Projects() {
         const metadata = {
             name: "AnbeShivam Investor - Project "+chosenProject.name,
             description: "Certificate of Investment in project "+chosenProject.name+" on the AnbeShivam Protocol",
-            image: ""
+            image: "https://ipfs.infura.io/ipfs/QmY9LjfT4z3A1vwxaRPTaQ4DPhwfgJmzTaJsa7N1RdSgu9"
         }
-        await investFunds(chosenProject.id, metadata, amount);
+        const metadataString = JSON.stringify(metadata);
+        await investFunds(chosenProject.id, metadataString, amount);
     }
 
     if(connected) {
@@ -71,7 +72,7 @@ function Projects() {
             {projects.map((project, key) => (
                 <div>
                     <h4>{project}</h4>
-                    <button id={key} className="w3-button w3-black w3-padding-small w3-small w3-margin-top" value={project.id} onClick={getProject}>View</button>
+                    <button id={key} className="w3-button w3-black w3-padding-small w3-small w3-margin-top" value={key} onClick={getProject}>View</button>
                     <br/>
                 </div>
              ))

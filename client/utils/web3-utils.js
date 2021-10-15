@@ -169,7 +169,7 @@ export const investFunds = async(contentId, metadata, amount) => {
 
 export const getNFTs = async() => {
   const account = await getAccountAddress();
-  const nftCount = await ASNFT.returnNFTCount();
+  const nftCount = await ASNFT.methods.returnNFTCount().call();
   let nfts = [];
   for(var i = 0; i < nftCount; ++i) {
     const nft = await ASNFT.methods.badges(i).call();
