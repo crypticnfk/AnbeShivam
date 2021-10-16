@@ -1,4 +1,5 @@
 import { Context } from '../context/state';
+import Link from 'next/link';
 import { 
     useEffect, 
     useState, 
@@ -39,8 +40,9 @@ function Header() {
             <div className="w3-bar w3-red w3-card w3-left-align w3-large">
                 <a className="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onClick="myFunction()" title="Toggle Navigation Menu"><i className="fa fa-bars" /></a>
                 <a href="/" className="w3-bar-item w3-button w3-padding-large w3-white">AnbeShivam</a>
-                <a href="/projects" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Projects</a>
-                <a href="/nfts" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">NFTs</a>
+               <Link href="/projects"><a className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Projecs</a></Link>
+                <Link href = "/nfts"><a className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">MY NFTs</a></Link>
+                <Link href = "/add"><a  className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">ADD NFTs</a></Link>
                 &nbsp;&nbsp;
                 <a href="#" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">{ account.substring(0, 15) }{ account.length >= 10 && `.....` }</a>
                 <a href="#" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">{ godsBalance.toString() } GODS</a>

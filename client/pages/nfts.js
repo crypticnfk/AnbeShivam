@@ -1,35 +1,37 @@
+import React from 'react'
 import { Context } from '../context/state';
-import { 
-    useState, 
+import {
+    useState,
     useEffect,
-    useContext 
+    useContext
 } from "react";
-import { 
-    loadWeb3, 
+import {
+    loadWeb3,
     loadBlockchainData,
     checkInvestor,
     getNFTs,
     getTokenURI
 } from '../utils/web3-utils';
 import { Card } from 'react-bootstrap';
+import styles from '../styles/Nfts.module.css'
 
 function Nfts() {
     const [web3, setweb3] = useContext(Context);
     const [connected, setConnected] = useState(false);
     const [nfts, setNfts] = useState([]);
 
-    useEffect(async() => {
-        if(web3) {
+    useEffect(async () => {
+        if (web3) {
             await loadWeb3();
             const isConnected = await loadBlockchainData();
             setConnected(isConnected);
             const isInvestor = await checkInvestor();
-            if(!isInvestor) {
+            if (!isInvestor) {
                 window.location.href = "/";
             }
             const nfts = await getNFTs();
             let Nftms = [];
-            for(var nft of nfts) {
+            for (var nft of nfts) {
                 const mdata = await getNFTMetadata(nft.tokenID);
                 mdata["tokenID"] = nft.tokenID;
                 Nftms.push(mdata);
@@ -37,50 +39,51 @@ function Nfts() {
             setNfts(Nftms);
             console.log(Nftms)
         }
-    },[web3]);
+    }, [web3]);
 
-    const getNFTMetadata = async(id) => {
+    const getNFTMetadata = async (id) => {
         const metadataString = await getTokenURI(id);
         const metadata = JSON.parse(metadataString);
         return metadata;
     }
 
-    if(connected) {
-        return(
-            <>
-            <div>
-            <br/><br/>     
-            {nfts.length == 0 &&
-                <h1>You do not own any AnbeShivam NFTs</h1>
-            }     
-            {nfts.length > 0 &&
+    if (connected) {
+        return (
                 <div>
-                    <h1>Your NFTs</h1>
-                    <br/>
+                    <br /><br />
+                    {nfts.length == 0 &&
+                        <h1>You do not own any AnbeShivam NFTs</h1>
+                    }
+                    {nfts.length > 0 &&
+                        <div className="st-heading">
+                            <h1>Your NFTs</h1>
+                            <br />
+                        </div>
+                    }
+                      <div className={styles.band}>
+                        {nfts.map((nft, key) => (
+
+                                <Card style={{ width: '18rem' }} className={styles}>
+                                    <Card.Img variant="top" alt="Not Available" src={nft.image} />
+                                    <Card.Body>
+                                        <Card.Title>{nft.name}</Card.Title>
+                                        <Card.Text>Token ID: {nft.tokenID}<br /><br />
+                                            {nft.description}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                                
+                        ))
+                        }
+                        
+                    </div>
                 </div>
-            }
-            {nfts.map((nft, key) => (
-                <div>
-                    <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" alt="Not Available" src={nft.image} />
-                    <Card.Body>
-                        <Card.Title>{nft.name}</Card.Title>
-                        <Card.Text>Token ID: {nft.tokenID}<br/><br/>
-                            {nft.description}
-                        </Card.Text>
-                    </Card.Body>
-                    </Card>               
-                    <br/><br/>
-                </div>
-             ))
-            }
-            </div>
-            </>
+
         );
     } else {
-        return(
+        return (
             <div>
-                <br/><br/>
+                <br /><br />
                 <h1>Not Connected</h1>
             </div>
         );

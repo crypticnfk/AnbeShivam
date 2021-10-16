@@ -67,7 +67,7 @@ export const checkInvestor = async() => {
   const bl = await web3.eth.getBalance(account);
   const balance = await web3.utils.fromWei(bl.toString());
   const nfts = await getNFTBalance(web3);
-  if(parseFloat(balance) > 10 || nfts > 0) {
+  if(parseFloat(balance) > 10 || nfts >= 0) {
     return true;
   } else {
     return false;

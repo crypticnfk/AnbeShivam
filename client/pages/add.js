@@ -54,8 +54,9 @@ function AddContent() {
     if(connected) {
         return (
             <div className="col-md-6 offset-md-3 mt-5">
-
-                <h1 className={styles.heading}>Add a New Project</h1>
+                <div className="st-heading">
+                <h1 className>Add a New Project</h1>
+                </div>
                 <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit} target="_blank" className={styles.addMain}>
                     <div className="form-group">
                         <label htmlFor="exampleInputName">Project Name</label>

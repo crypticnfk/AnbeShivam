@@ -39,7 +39,7 @@ function Home() {
 
   return (
 
-      <div>
+      <div className="main">
         <header className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
           <h1 className="w3-margin w3-jumbo">AnbeShivam</h1>
           <p className="w3-xlarge">Project Funding, Simplified and Decentralized</p>
@@ -75,10 +75,6 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="w3-container w3-black w3-center w3-opacity w3-padding-64">
-          <h1 className="w3-margin w3-xlarge">Quote of the day: live life</h1>
-        </div>
-
       </div>
 
   );
