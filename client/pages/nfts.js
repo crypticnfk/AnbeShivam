@@ -11,6 +11,7 @@ import {
     getNFTs,
     getTokenURI
 } from '../utils/web3-utils';
+import { Card } from 'react-bootstrap';
 
 function Nfts() {
     const [web3, setweb3] = useContext(Context);
@@ -60,10 +61,15 @@ function Nfts() {
             }
             {nfts.map((nft, key) => (
                 <div>
-                    <h6>Token ID: {nft.tokenID}</h6>
-                    <h4>{nft.name}</h4> 
-                    <p>{nft.description}</p>
-                    <img style={{ alignSelf: 'center' }} alt="Not Available" src={nft.image} height="100" width="150" />                   
+                    <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" alt="Not Available" src={nft.image} />
+                    <Card.Body>
+                        <Card.Title>{nft.name}</Card.Title>
+                        <Card.Text>Token ID: {nft.tokenID}<br/><br/>
+                            {nft.description}
+                        </Card.Text>
+                    </Card.Body>
+                    </Card>               
                     <br/><br/>
                 </div>
              ))

@@ -1,3 +1,5 @@
+import styles from '../styles/Projects.module.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Context } from '../context/state';
 import { 
     useState, 
@@ -52,7 +54,7 @@ function Projects() {
         const metadata = {
             name: "AnbeShivam Investor - Project "+chosenProject.name,
             description: "Certificate of Investment in project "+chosenProject.name+" on the AnbeShivam Protocol",
-            image: "https://ipfs.infura.io/ipfs/QmY9LjfT4z3A1vwxaRPTaQ4DPhwfgJmzTaJsa7N1RdSgu9"
+            image: "https://ipfs.infura.io/ipfs/QmUA8rokQCEgF67K37Gmbeuq4SN9VEviSVtQxuUzNKZAN3"
         }
         const metadataString = JSON.stringify(metadata);
         await investFunds(chosenProject.id, metadataString, amount);
@@ -61,19 +63,27 @@ function Projects() {
     if(connected) {
         return(
             <>
-            <div>
+            <div className="col-md-6 offset-md-3 mt-5">
             <br/><br/>     
             {projects.length == 0 &&
-                <h1>No Projects</h1>
+                <h1 className={styles.heading}>No Projects to display</h1>
             }     
             {projects.length > 0 &&
             <div>
-                <h1>Projects</h1>
+                <h1 className={styles.heading}>Projects</h1>
             {projects.map((project, key) => (
                 <div>
+                    <Container>
+                <Row>
+                  <Col>
                     <h4>{project}</h4>
+                  </Col>
+                  <Col>
                     <button id={key} className="w3-button w3-black w3-padding-small w3-small w3-margin-top" value={key} onClick={getProject}>View</button>
-                    <br/>
+                  </Col>
+                </Row>
+                </Container>
+                <br/>
                 </div>
              ))
             }
