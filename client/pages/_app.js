@@ -5,6 +5,7 @@ import { loadWeb3 } from '../utils/web3-utils';
 import NoSSRWrapper from '../components/nossr'
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
   const [web3, setweb3] = useState(false);
@@ -16,6 +17,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Context.Provider value={[web3, setweb3]}>
+      <Head>
+        <title>AnbeShivam</title>
+        <meta property="og:title" content="AnbeShivam title" key="title" />
+      </Head>
       <Layout>
         <Component {...pageProps} />
       </Layout>
