@@ -9,7 +9,7 @@ import {
   loadBlockchainData, 
   checkInvestor
 } from '../utils/web3-utils';
-
+import styles from '../styles/Home.module.css';
 function Home() {
   const [web3, setWeb3] = useContext(Context); 
 
@@ -36,15 +36,16 @@ function Home() {
       }
     }
   }
+  
 
   return (
-
-      <div className="main">
-        <header className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
+      
+      <div className={styles.main}>
+        <div className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
           <h1 className="w3-margin w3-jumbo">AnbeShivam</h1>
           <p className="w3-xlarge">Project Funding, Simplified and Decentralized</p>
           <button className="w3-button w3-black w3-padding-large w3-large w3-margin-top" onClick={checkUser}>Enter App</button>
-        </header>
+        </div>
         {/* First Grid */}
         <div className="w3-row-padding w3-padding-64 w3-container">
           <div className="w3-content">
@@ -61,7 +62,7 @@ function Home() {
           </div>
         </div>
         {/* Second Grid */}
-        <div className="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+        <div className="w3-row-padding w3-light-grey w3-padding-64">
           <div className="w3-content">
             <div className="w3-third w3-center">
               <i className="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right" />
@@ -74,6 +75,9 @@ function Home() {
                 laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
           </div>
+        </div>
+        <div className={styles.box}>
+          
         </div>
       </div>
 
