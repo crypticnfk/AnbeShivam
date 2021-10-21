@@ -13,15 +13,18 @@ import {
     getTokenURI
 } from '../utils/web3-utils';
 import { Card } from 'react-bootstrap';
+import { AtomSpinner } from 'react-epic-spinners';
 import styles from '../styles/Nfts.module.css'
 
 function Nfts() {
     const [web3, setweb3] = useContext(Context);
     const [connected, setConnected] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [nfts, setNfts] = useState([]);
 
     useEffect(async () => {
         if (web3) {
+            setLoading(true);
             await loadWeb3();
             const isConnected = await loadBlockchainData();
             setConnected(isConnected);
@@ -37,7 +40,7 @@ function Nfts() {
                 Nftms.push(mdata);
             }
             setNfts(Nftms);
-            console.log(Nftms)
+            setLoading(false);
         }
     }, [web3]);
 
@@ -48,6 +51,13 @@ function Nfts() {
     }
 
     if (connected) {
+        if (loading) {
+            return (
+              <div>
+                <AtomSpinner color="lightblue" size="150"/>
+              </div>
+            );
+        } else {
         return (
                 <div>
                     <br /><br />
@@ -80,6 +90,7 @@ function Nfts() {
                 </div>
 
         );
+        }
     } else {
         return (
             <div>

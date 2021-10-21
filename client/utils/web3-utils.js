@@ -29,6 +29,14 @@ export const loadWeb3 = async () => {
   };
 };
 
+export const connectAccount = async () => {
+  if (typeof window.ethereum !== 'undefined') {
+      window.ethereum.request({ method: 'eth_requestAccounts' });
+  } else {
+      window.alert("Please install the Metamask plugin");
+  }
+};
+
 export const loadBlockchainData = async() => {
   const networkId = await web3.eth.net.getId();
   const asMainData = AnbeShivamMain.networks[networkId];
@@ -47,7 +55,10 @@ export const loadBlockchainData = async() => {
 };
 
 export const getAccountAddress = async() => {
-  const accounts = await web3.eth.getAccounts();
+  window.ethereum.on('accountsChanged', function (accounts) {
+    window.location.reload();
+  });
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
   return accounts[0];
 };
 
@@ -66,8 +77,8 @@ export const checkInvestor = async() => {
   const account = await getAccountAddress();
   const bl = await web3.eth.getBalance(account);
   const balance = await web3.utils.fromWei(bl.toString());
-  const nfts = await getNFTBalance(web3);
-  if(parseFloat(balance) > 10 || nfts >= 0) {
+  const nfts = await getNFTBalance();
+  if(parseFloat(balance) > 10 || nfts > 0) {
     return true;
   } else {
     return false;
@@ -173,7 +184,8 @@ export const getNFTs = async() => {
   let nfts = [];
   for(var i = 0; i < nftCount; ++i) {
     const nft = await ASNFT.methods.badges(i).call();
-    if(nft.owner == account) {
+    console.log(account)
+    if(nft.owner.toUpperCase()  == account.toUpperCase()) {
       nfts.push(nft);
     }
   }

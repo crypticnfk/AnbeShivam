@@ -15,6 +15,8 @@ function MyApp({ Component, pageProps }) {
     setweb3(web3Connected);
   },[web3]);
 
+  
+
   return (
     <Context.Provider value={[web3, setweb3]}>
       <Head>

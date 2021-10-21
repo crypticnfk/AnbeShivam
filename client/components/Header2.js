@@ -1,7 +1,5 @@
-import React from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Container from 'react-bootstrap/Container'
+import React from 'react';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import Link from 'next/dist/client/link'
 import { Context } from '../context/state';
 import {
@@ -11,6 +9,7 @@ import {
 } from 'react';
 import {
     loadWeb3,
+    connectAccount,
     loadBlockchainData,
     getAccountAddress,
     getGODSBalance,
@@ -39,6 +38,7 @@ export default function Header2() {
     const [account, setAccount] = useState("Not Connected");
     const [godsBalance, setBalance] = useState(0);
     const [networkName, setNetwork] = useState("Unidentified Network");
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -51,7 +51,14 @@ export default function Header2() {
                         <Link href="/add"><Nav.Link href="#pricing">Add Project</Nav.Link></Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets">{ account.substring(0, 15) }{ account.length >= 10 && `.....` }</Nav.Link>
+                        {
+                            account=="Not Connected" &&
+                            <Nav><Button onClick={connectAccount}>Connect Account</Button></Nav>
+                        }
+                        {
+                            account!="Not Connected" &&
+                            <Nav.Link href="#deets">{ account.substring(0, 15) }{ account.length >= 10 && `.....` }</Nav.Link>
+                        }
                         <Nav.Link href="#deets">{ godsBalance.toString() } GODS</Nav.Link>
                         <Nav.Link href="#deets">{ networkName }</Nav.Link>
                     </Nav>

@@ -11,6 +11,7 @@ import {
     loadBlockchainData, 
     addContent 
 } from '../utils/web3-utils';
+import { AtomSpinner } from 'react-epic-spinners';
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -19,13 +20,16 @@ function AddContent() {
 
     useEffect(async() => {
         if(web3) {
+            setLoading(true);
             await loadWeb3();
             const isConnected = await loadBlockchainData();
             setConnected(isConnected);
+            setLoading(false);
         }
     },[web3]);
 
     const [connected, setConnected] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [inputs, setInputs] = useState({});
     const [file, updateFile] = useState(``);
     const [url, updateUrl] = useState(``);
@@ -40,6 +44,7 @@ function AddContent() {
     }
     const handleSubmit = async(event) => {
         event.preventDefault();
+        setLoading(true);
 
         try {
             const added = await client.add(file);
@@ -49,9 +54,17 @@ function AddContent() {
         } catch (error) {
             console.log('Error uploading file: ', error);
         }
+        setLoading(false);
     }
 
     if(connected) {
+        if(loading) {
+            return (
+                <div>
+                    <AtomSpinner color="lightblue" size="150"/>
+                </div>
+            );
+        } else {
         return (
             <div className="col-md-6 offset-md-3 mt-5">
                 <div className="st-heading">
@@ -81,6 +94,7 @@ function AddContent() {
                 </form>
             </div>
         );
+        }
     } else {
         return(
             <h1>Not Connected</h1>

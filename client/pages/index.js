@@ -9,19 +9,24 @@ import {
   loadBlockchainData, 
   checkInvestor
 } from '../utils/web3-utils';
+import { AtomSpinner } from 'react-epic-spinners';
 import styles from '../styles/Home.module.css';
+
 function Home() {
   const [web3, setWeb3] = useContext(Context); 
 
   useEffect(async() => {
     if(web3) {
+      setLoading(true);
       await loadWeb3();
       const isConnected = await loadBlockchainData();
       setConnected(isConnected);
+      setLoading(false);
     }
   },[web3]);
 
   const [connected, setConnected] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const checkUser = async() => {
     if(!connected) {
@@ -29,16 +34,22 @@ function Home() {
     } else {
       const isInvestor = await checkInvestor();
       if(isInvestor) {
-        window.alert("Welcome Investor");
+        window.alert("Welcome to AnbeShivam");
         window.location.href = "/projects";
       } else {
-        window.alert("You're not eligible to access the platform");
+        window.alert("Sorry, You do not meet the requirements to access the platform");
       }
     }
   }
-  
 
-  return (
+  if (loading) {
+    return (
+      <div>
+        <AtomSpinner color="lightblue" size="150"/>
+      </div>
+    );
+  } else {
+    return (
       
       <div className={styles.main}>
         <div className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
@@ -81,7 +92,8 @@ function Home() {
         </div>
       </div>
 
-  );
+    );
+  }
 }
 
 export default Home;

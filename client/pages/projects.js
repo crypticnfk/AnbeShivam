@@ -1,9 +1,9 @@
 import styles from '../styles/Projects.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Context } from '../context/state';
-import React from 'react'
-import { Card } from 'react-bootstrap'
-import { Button } from 'react-bootstrap'
+import React from 'react';
+import { Card, Button } from 'react-bootstrap';
+import { AtomSpinner } from 'react-epic-spinners';
 import {
     useState,
     useEffect,
@@ -23,6 +23,7 @@ import ProjectModal from '../components/modal';
 function Projects() {
     const [web3, setweb3] = useContext(Context);
     const [connected, setConnected] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [projects, setProjects] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [chosenProject, chooseProject] = useState(null);
@@ -30,6 +31,7 @@ function Projects() {
 
     useEffect(async () => {
         if (web3) {
+            setLoading(true);
             await loadWeb3();
             const isConnected = await loadBlockchainData();
             setConnected(isConnected);
@@ -40,10 +42,12 @@ function Projects() {
                 window.location.href = "/";
             }
             setMaticusd(await fetchLatestPrice());
+            setLoading(false);
         }
     }, [web3]);
 
     const getProject = async (event) => {
+        setLoading(true);
         returnContent(event.target.value)
             .then(result => {
                 if (result) {
@@ -51,6 +55,7 @@ function Projects() {
                     setModalShow(true);
                 }
             })
+        setLoading(false);
     }
 
     const investInProject = async (amount) => {
@@ -60,10 +65,19 @@ function Projects() {
             image: "https://ipfs.infura.io/ipfs/QmUA8rokQCEgF67K37Gmbeuq4SN9VEviSVtQxuUzNKZAN3"
         }
         const metadataString = JSON.stringify(metadata);
+        setLoading(true);
         await investFunds(chosenProject.id, metadataString, amount);
+        setLoading(false);
     }
 
     if (connected) {
+        if(loading) {
+            return (
+                <div>
+                    <AtomSpinner color="lightblue" size="150" />
+                </div>
+            );
+        } else {
         return (
             <>
                 <div className="col-md-6 offset-md-3 mt-5">
@@ -74,20 +88,24 @@ function Projects() {
                     {projects.length > 0 &&
                         <div>
                             <div className="st-heading">
-                            <h1 className>Projects</h1>
+                                <h1 className>Projects</h1>
+                                <br/>
                             </div>
                             {projects.map((project, key) => (
-
-                                <Card>
-                                    <Card.Header>{project}</Card.Header>
-                                    <Card.Body>
-                                        <Button id={key} value={key} variant="primary" onClick={getProject}>View Details</Button>
-                                    </Card.Body>
-                                </Card>
-                                
-
-                            ))
-                            }
+                                <div>
+                                    <center>
+                                    <Card style={{ width: '30rem' }}>
+                                        <Card.Header>
+                                            <h3>{project}</h3>
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <Button id={key} value={key} variant="primary" onClick={getProject}>View Details</Button>
+                                        </Card.Body>
+                                    </Card>
+                                    </center>
+                                    <br/>
+                                </div>                              
+                            ))}
                             <ProjectModal
                                 show={modalShow}
                                 maticusd={maticusd}
@@ -100,6 +118,7 @@ function Projects() {
                 </div>
             </>
         );
+        }
     } else {
         return (
             <div>
