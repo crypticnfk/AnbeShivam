@@ -1,8 +1,8 @@
 import styles from '../styles/Projects.module.css';
-import { Container, Row, Col } from 'react-bootstrap';
 import { Context } from '../context/state';
+import { create } from 'ipfs-http-client';
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { AtomSpinner } from 'react-epic-spinners';
 import {
     useState,
@@ -19,6 +19,8 @@ import {
     fetchLatestPrice
 } from '../utils/web3-utils';
 import ProjectModal from '../components/modal';
+
+const client = create('https://ipfs.infura.io:5001/api/v0');
 
 function Projects() {
     const [web3, setweb3] = useContext(Context);
@@ -62,11 +64,18 @@ function Projects() {
         const metadata = {
             name: "AnbeShivam Investor - Project " + chosenProject.name,
             description: "Certificate of Investment in project " + chosenProject.name + " on the AnbeShivam Protocol",
-            image: "https://ipfs.infura.io/ipfs/QmUA8rokQCEgF67K37Gmbeuq4SN9VEviSVtQxuUzNKZAN3"
+            image: "https://bafybeicwosh52j2xv7iyzp4azsvh6ejrih6y4lctb55fqtmhloihws4pba.ipfs.infura-ipfs.io/"
         }
         const metadataString = JSON.stringify(metadata);
         setLoading(true);
-        await investFunds(chosenProject.id, metadataString, amount);
+        let uri;
+        try {
+            const added = await client.add(metadataString);
+            uri = `https://ipfs.infura.io/ipfs/${added.path}`;
+        } catch (error) {
+            console.log('Error uploading file: ', error);
+        }
+        await investFunds(chosenProject.id, uri, amount);
         setLoading(false);
     }
 

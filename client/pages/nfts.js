@@ -45,8 +45,9 @@ function Nfts() {
     }, [web3]);
 
     const getNFTMetadata = async (id) => {
-        const metadataString = await getTokenURI(id);
-        const metadata = JSON.parse(metadataString);
+        const uri = await getTokenURI(id);
+        let resp = await fetch(uri);
+        let metadata = await resp.json();
         return metadata;
     }
 

@@ -184,8 +184,7 @@ export const getNFTs = async() => {
   let nfts = [];
   for(var i = 0; i < nftCount; ++i) {
     const nft = await ASNFT.methods.badges(i).call();
-    console.log(account)
-    if(nft.owner.toUpperCase()  == account.toUpperCase()) {
+    if(nft.owner.toUpperCase() == account.toUpperCase()) {
       nfts.push(nft);
     }
   }
