@@ -54,7 +54,7 @@ function Nfts() {
     if (connected) {
         if (loading) {
             return (
-              <div>
+              <div className="spinner">
                 <AtomSpinner color="lightblue" size="150"/>
               </div>
             );
@@ -63,7 +63,9 @@ function Nfts() {
                 <div>
                     <br /><br />
                     {nfts.length == 0 &&
-                        <h1>You do not own any AnbeShivam NFTs</h1>
+                        <div className="st-heading">
+                        <h1 >You do not own any AnbeShivam NFTs</h1>
+                        </div>
                     }
                     {nfts.length > 0 &&
                         <div className="st-heading">
@@ -96,7 +98,9 @@ function Nfts() {
         return (
             <div>
                 <br /><br />
+                <div className="st-heading">
                 <h1>Not Connected</h1>
+                </div>
             </div>
         );
     }

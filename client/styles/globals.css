@@ -25,3 +25,13 @@
   margin-left: -50px;
   background-color: #b80000;
 }
+
+.spinner{
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15%;
+}

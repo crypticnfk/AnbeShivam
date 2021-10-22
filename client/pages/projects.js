@@ -82,7 +82,7 @@ function Projects() {
     if (connected) {
         if(loading) {
             return (
-                <div>
+                <div className="spinner" >
                     <AtomSpinner color="lightblue" size="150" />
                 </div>
             );
@@ -92,7 +92,9 @@ function Projects() {
                 <div className="col-md-6 offset-md-3 mt-5">
                     <br /><br />
                     {projects.length == 0 &&
+                        <div className="st-heading">
                         <h1 className={styles.heading}>No Projects to display</h1>
+                        </div>
                     }
                     {projects.length > 0 &&
                         <div>
@@ -130,8 +132,7 @@ function Projects() {
         }
     } else {
         return (
-            <div>
-                <br /><br />
+            <div className="st-heading">
                 <h1>Not Connected</h1>
             </div>
         );

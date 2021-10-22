@@ -44,7 +44,7 @@ function Home() {
 
   if (loading) {
     return (
-      <div>
+      <div className="spinner">
         <AtomSpinner color="lightblue" size="150"/>
       </div>
     );
