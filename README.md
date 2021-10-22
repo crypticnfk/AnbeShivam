@@ -1,17 +1,10 @@
 
 # AnbeShivam
 
-A decentralized and completely transparent project funding platform which allows only accredited investors to access the platform content
+A decentralized and completely transparent project funding platform which allows only accredited investors to access the platform content.
 
-
-## Tech Stack Used
-
-- Truffle Suite
-- Next js
-- ganache
-- IPFS
-- openzeppelin
-- react-bootstrap
+> AnbeShivam Beta is now live on the Polygon Mumbai Testnet. Visit https://anbe-shivam.vercel.app
+<br/>
 
 ## AnbeShivam Smart Contract Deployments
 
@@ -22,15 +15,22 @@ A decentralized and completely transparent project funding platform which allows
 | [AnbeShivamMain Contract](https://mumbai.polygonscan.com/address/0x6C5452e7822c82af4ee38041f4749EdaBfaa2F79) | `0x6C5452e7822c82af4ee38041f4749EdaBfaa2F79` |
 | [GODS Token Contract](https://mumbai.polygonscan.com/token/0xFfFcC7aFa25fC131e54c4E194eC9D97eAA1C62d9) | `0xFfFcC7aFa25fC131e54c4E194eC9D97eAA1C62d9`|
 | [AnbeShivam NFT Contract](https://mumbai.polygonscan.com/token/0x28a3a80bF1A53653f85150cBB0BA2A3E3cb817Fc) | `0x28a3a80bF1A53653f85150cBB0BA2A3E3cb817Fc`|
+<br/>
 
+## Tech Stack Used
 
+- Truffle Suite
+- Next js
+- IPFS
+- OpenZeppelin Contracts
+- react-bootstrap
 
 ## Run Locally
 
-
 ### Pre-Requisites
 
-- truffle
+- Node JS version 12 or higher
+- Truffle Suite
 - ganache-cli
 
   
@@ -48,27 +48,27 @@ Go to the project directory
 ```
 
 
-### Setting up a local Block Chain Server
+### Deploying locally to personal blockchain using Ganache
+
 Install dependencies
 
 ```bash
   npm install
 ```
 
-Compile Smart Contracts
+Compile the Smart Contracts
 
 ```bash
-  truffel Compile
+  truffle compile
 ```
 
-Run ganache (a local block chain)
+Run Ganache (spins up a local blockchain)
 
 ```bash
   ganache-cli
 ```  
 
-Run migrations to deploy the smart contracts to ganache
-
+Run migrations to deploy the smart contracts to the local blockchain
 
 ```bash
   truffle migrate
@@ -89,13 +89,13 @@ Install dependencies
 
 ```
 
-Starting a dev server
+Start a dev server
 
 ```bash
   npm run dev
 
 ```
-Visit http://localhost:3000/ to view the app
+Visit http://localhost:3000/ to view the DApp.
 
 
 ## Running Tests
@@ -121,7 +121,7 @@ Contributions are what makes the open source community such an amazing place to 
 
 - [@abhigamez](https://github.com/abhinav-TB)
 - [@crypticnfk](https://github.com/crypticnfk)
-- [Navneeth Ranjith](https://github.com/Navneeth87)
+- [@Navneeth87](https://github.com/Navneeth87)
 - [@HishamHR5](https://github.com/HishamHR5)
 - [@aZrael936](https://github.com/aZrael936)
 
@@ -133,6 +133,4 @@ If you have any feedback, please reach out to us at cryptomaniac@anbeshivam.com
   
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
-  
+[MIT](https://choosealicense.com/licenses/mit/)  
