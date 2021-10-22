@@ -39,6 +39,7 @@ export const connectAccount = async () => {
 
 export const loadBlockchainData = async() => {
   const networkId = await web3.eth.net.getId();
+  
   const asMainData = AnbeShivamMain.networks[networkId];
   const asNFTData = AnbeShivamNFT.networks[networkId];
   const asGODSData = AnbeShivamInvestorToken.networks[networkId];
@@ -63,7 +64,8 @@ export const getAccountAddress = async() => {
 };
 
 export const getNetwork = async() => {
-  const networkId = await web3.eth.net.getId();
+  const networkId = await web3.eth.net.getId();  
+  console.log("Hi")
   if(networkId == 137) {
     return "Polygon";
   } else if(networkId == 80001) {
