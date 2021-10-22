@@ -49,6 +49,8 @@ function Projects() {
     }, [web3]);
 
     const getProject = async (event) => {
+        event.preventDefault();
+
         setLoading(true);
         returnContent(event.target.value)
             .then(result => {
@@ -77,6 +79,7 @@ function Projects() {
         }
         await investFunds(chosenProject.id, uri, amount);
         setLoading(false);
+        window.alert("Successfully funded Project " + chosenProject.name);
     }
 
     if (connected) {

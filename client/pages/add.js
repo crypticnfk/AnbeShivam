@@ -51,6 +51,7 @@ function AddContent() {
             const pathUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
             updateUrl(pathUrl);
             await addContent(inputs.name, pathUrl);
+            window.alert("Project added successfully");
         } catch (error) {
             console.log('Error uploading file: ', error);
         }
