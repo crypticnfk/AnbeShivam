@@ -53,7 +53,7 @@ export default function Header2() {
                     <Nav>
                         {
                             account=="Not Connected" &&
-                            <Nav><Button onClick={connectAccount}>Connect Account</Button></Nav>
+                            <Nav><Button onClick={connectAccount}>Connect Wallet</Button></Nav>
                         }
                         {
                             account!="Not Connected" &&

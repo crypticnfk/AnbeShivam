@@ -110,7 +110,7 @@ function Projects() {
                                             <h3>{project}</h3>
                                         </Card.Header>
                                         <Card.Body>
-                                            <Button id={key} value={key} variant="primary" onClick={getProject}>View Details</Button>
+                                            <Button id={key} value={key} variant="primary" onClick={getProject}>View Project Pitch</Button>
                                         </Card.Body>
                                     </Card>
                                     </center>

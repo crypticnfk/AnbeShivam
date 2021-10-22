@@ -126,12 +126,11 @@ export const addContent = async(projectName, fileURL) => {
     .on("receipt", function (receipt) {})
     .on("confirmation", (confirmationNumber, receipt) => {
       window.alert("Project was added successfully");
+      window.location.href= "/projects";
     })
     .on("error", (error, receipt) => {
       window.alert("Error occured: ", error);
     });
-
-  window.location.href= "/projects";
 };
 
 export const returnContent = async(projectId) => {
@@ -172,12 +171,11 @@ export const investFunds = async(contentId, metadata, amount) => {
     .on("receipt", function (receipt) {})
     .on("confirmation", (confirmationNumber, receipt) => {
       window.alert("Successfully funded project " + contentId.toString());
+      window.location.reload();
     })
     .on("error", (error, receipt) => {
       window.alert("Error occured while accessing content");
     });
-
-  window.location.reload();
 };
 
 export const getNFTs = async() => {

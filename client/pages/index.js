@@ -61,11 +61,17 @@ function Home() {
         <div className="w3-row-padding w3-padding-64 w3-container">
           <div className="w3-content">
             <div className="w3-twothird">
-              <h1>Lorem Ipsum</h1>
-              <h5 className="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
-              <p className="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <h1>Overview</h1>
+              <h5 className="w3-padding-32">AnbeShivam works as a decentralized and completely transparent project funding platform which allows only accredited investors to access the platform content</h5>
+              <br/>
+              <img src='https://bafkreid67fadbf2tsamv56rajryljl75devicxcra2y3hac7lerohnm5fm.ipfs.dweb.link/' alt="AnbeShivam flow" width="800" height="400" />
+              <br/><br/>
+              <p className="w3-text-grey">Only wallets having a minimum balance (currently 2 MATIC) are allowed access to the AnbeShivam platform.
+              Here, the investors can view pitches and other content related to the listed projects and send funds towards the project.
+              <br/>
+              The platform then rewards investors with $GODS and exclusive AnbeShivam NFTs in return. <br/> 
+              Accounts owning AnbeShivam NFTs are also whitelisted and subsequently become eligible to gain access to the platform, even without having
+              to meet the minimum balance criterion.</p>
             </div>
             <div className="w3-third w3-center">
               <i className="fa fa-anchor w3-padding-64 w3-text-red" />
@@ -79,11 +85,17 @@ function Home() {
               <i className="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right" />
             </div>
             <div className="w3-twothird">
-              <h1>Lorem Ipsum</h1>
-              <h5 className="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
-              <p className="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+              <h1>Investment Process</h1>
+              <br/>
+              <img src='https://bafkreibddmgu66zumxeqj4wyrvdyqruyr5rvpeo7vudekxhtyzzwtsckbq.ipfs.dweb.link/' alt="AnbeShivam flow" width="700" height="150" />
+              <br/><br/>
+              <h5 className="w3-padding-32">Investors can access pitch content on the platform and each time and event will be emitted while doing so. This 
+              will act as proof of the content being accessed. On pledging or sending funds towards a project, the investor receives an equivalent amount of 
+              $GODS and an AnbeShivam NFT in return. The NFT also acts an investor badge, signifying their involvment as an investor on the AnbeShivam protocol.</h5>
+              <br/>
+              {/* <p className="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                laboris nisi ut aliquip ex ea commodo consequat.</p> */}
             </div>
           </div>
         </div>
