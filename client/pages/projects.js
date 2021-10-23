@@ -19,6 +19,7 @@ import {
     fetchLatestPrice
 } from '../utils/web3-utils';
 import ProjectModal from '../components/modal';
+import Layout2 from '../components/Layout2';
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -88,7 +89,7 @@ function Projects() {
             );
         } else {
         return (
-            <>
+            <Layout2>
                 <div className="col-md-6 offset-md-3 mt-5">
                     <br /><br />
                     {projects.length == 0 &&
@@ -127,7 +128,7 @@ function Projects() {
                         </div>
                     }
                 </div>
-            </>
+            </Layout2>
         );
         }
     } else {

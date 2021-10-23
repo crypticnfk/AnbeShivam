@@ -12,6 +12,7 @@ import {
     addContent
 } from '../utils/web3-utils';
 import { AtomSpinner } from 'react-epic-spinners';
+import Layout from '../components/Layout';
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -66,11 +67,13 @@ function AddContent() {
             );
         } else {
             return (
+                 <Layout>
+                <div className={styles.addMain}>
                 <div className="col-md-6 offset-md-3 mt-5">
                     <div className="st-heading">
                         <h1 className>Add a New Project</h1>
                     </div>
-                    <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit} target="_blank" className={styles.addMain}>
+                    <form acceptCharset="UTF-8" method="POST" onSubmit={handleSubmit} target="_blank" >
                         <div className="form-group">
                             <label htmlFor="exampleInputName">Project Name</label>
                             <input type="text" name="name" className="form-control" id="exampleInputName" placeholder="Enter Project Name" required="required" onChange={handleChange} />
@@ -96,13 +99,17 @@ function AddContent() {
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                </div>
+                </Layout>
             );
         }
     } else {
         return (
+            <Layout>
             <div className="st-heading">
                 <h1 className="st-heading">Not Connected</h1>
             </div>
+            </Layout>
         );
     }
 }

@@ -23,9 +23,7 @@ function MyApp({ Component, pageProps }) {
         <title>AnbeShivam</title>
         <meta property="og:title" content="AnbeShivam title" key="title" />
       </Head>
-      <Layout>
         <Component {...pageProps} />
-      </Layout>
     </Context.Provider>
   )
 }

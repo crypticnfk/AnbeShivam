@@ -11,6 +11,7 @@ import {
 } from '../utils/web3-utils';
 import { AtomSpinner } from 'react-epic-spinners';
 import styles from '../styles/Home.module.css';
+import Layout from '../components/Layout';
 
 function Home() {
   const [web3, setWeb3] = useContext(Context); 
@@ -50,7 +51,7 @@ function Home() {
     );
   } else {
     return (
-      
+      <Layout>
       <div className={styles.main}>
         <div className="w3-container w3-red w3-center" style={{ padding: '128px 16px' }}>
           <h1 className="w3-margin w3-jumbo">AnbeShivam</h1>
@@ -103,7 +104,7 @@ function Home() {
           
         </div>
       </div>
-
+     </Layout>
     );
   }
 }

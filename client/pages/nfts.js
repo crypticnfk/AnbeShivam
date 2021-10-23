@@ -15,6 +15,7 @@ import {
 import { Card } from 'react-bootstrap';
 import { AtomSpinner } from 'react-epic-spinners';
 import styles from '../styles/Nfts.module.css'
+import Layout from '../components/Layout';
 
 function Nfts() {
     const [web3, setweb3] = useContext(Context);
@@ -60,7 +61,7 @@ function Nfts() {
             );
         } else {
         return (
-                <div>
+                <Layout>
                     <br /><br />
                     {nfts.length == 0 &&
                         <div className="st-heading">
@@ -90,18 +91,18 @@ function Nfts() {
                         }
                         
                     </div>
-                </div>
+                </Layout>
 
         );
         }
     } else {
         return (
-            <div>
+            <Layout>
                 <br /><br />
                 <div className="st-heading">
                 <h1>Not Connected</h1>
                 </div>
-            </div>
+            </Layout>
         );
     }
 }

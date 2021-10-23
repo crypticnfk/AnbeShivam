@@ -1,6 +1,8 @@
 .addMain{
     margin-top: 150px;
-    min-width:100%;
+    margin-bottom: 210px;
+    /* min-width:100%; */
+    min-height: 100%;
     align-items: center;
   }
 .heading {
