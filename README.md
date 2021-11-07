@@ -1,7 +1,7 @@
 
 # AnbeShivam
 
-A decentralized and completely transparent project funding platform which allows only accredited investors to access the platform content.
+Decentralized and completely transparent Project Funding Platform which exclusively allows only accredited investors to access the platform contents.
 
 > AnbeShivam Beta is now live on the Polygon Mumbai Testnet. Visit https://anbe-shivam.vercel.app
 <br/>
@@ -20,9 +20,10 @@ A decentralized and completely transparent project funding platform which allows
 ## Tech Stack Used
 
 - Truffle Suite
-- Next js
 - IPFS
+- Chainlink Price Feeds
 - OpenZeppelin Contracts
+- Next js
 - react-bootstrap
 
 ## Run Locally
